@@ -1,10 +1,10 @@
-import { Login } from "./components/login/Login"
+import LoginForm from "./components/login/Login"
 
 const App = () => {
 
   return (
     <>
-    <Login/>
+    <LoginForm/>
     </>
   )
 }
