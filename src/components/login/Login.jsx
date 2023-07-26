@@ -31,7 +31,7 @@ const LoginForm = () => {
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
           Password:
         </label>
-        <div className='border border-blue-300'>
+        <div>
             <input
                 className="w-full px-3 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
                 type={showPassword ? 'text' : 'password'}
@@ -41,9 +41,8 @@ const LoginForm = () => {
                 placeholder="Enter your password"
             />
             <div
-            className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer border border-red-300"
+            className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer mt-6"
             onClick={togglePasswordVisibility}
-            style={{ top: '50%', transform: 'translateY(-50%)' }}
             >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </div>
