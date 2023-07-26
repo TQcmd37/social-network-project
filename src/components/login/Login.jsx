@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Eye, EyeOff } from 'react-feather';
+import RegisterForm from '../registerForm/RegisterForm';
 
 const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -11,6 +13,13 @@ const LoginForm = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
+  };
+  const openRegisterModal = () => {
+    setShowRegisterModal(true);
+  };
+
+  const closeRegisterModal = () => {
+    setShowRegisterModal(false);
   };
 
   return (
@@ -60,10 +69,12 @@ const LoginForm = () => {
         <button
           className="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
+          onClick={openRegisterModal}
         >
           Create New Account
         </button>
       </div>
+      {showRegisterModal && <RegisterForm onClose={closeRegisterModal} />}
     </div>
   );
 };
