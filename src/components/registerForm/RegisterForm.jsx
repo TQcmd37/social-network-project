@@ -1,15 +1,18 @@
 import  { useState } from 'react';
 import PropTypes from 'prop-types';
-import PasswordMismatchModal from '../misMatchPassword/PasswordMisMatchModal';
+import Modal from '../Modal/Modal';
 
 const RegisterForm = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-const [showPasswordMismatchModal, setShowPasswordMismatchModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState(''); 
+  const [modalMessage, setModalMessage] = useState('');
+  const [showModalWindow, setShowModalWindow] = useState(false);
 
 
+  const MIN_PASSWORD_LENGTH = 6;
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -26,12 +29,23 @@ const [showPasswordMismatchModal, setShowPasswordMismatchModal] = useState(false
 const handleConfirmPasswordChange = (e) => {
   setConfirmPassword(e.target.value);
 };
-
-const handleRegister = () => {
-  if (password !== confirmPassword) {
-    setShowPasswordMismatchModal(true);
-    return;
-  }}
+const showModal = (title, message) => {
+    setShowModalWindow(true);
+    setModalTitle(title);
+    setModalMessage(message);
+};
+  const handleRegister = () => {
+    if (password !== confirmPassword) {
+      showModal("Passwords don't match", "Please make sure the passwords match and try again.");
+      return;
+    }
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      showModal("Password too short", "Password must have at least 6 characters.");
+      return;
+    }
+  
+    // Resto de la lógica de registro si pasa todas las validaciones
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -83,9 +97,13 @@ const handleRegister = () => {
           </button>
         </div>
       </div>
-      {showPasswordMismatchModal && (
-        <PasswordMismatchModal onClose={() => setShowPasswordMismatchModal(false)} />
-      )}
+      {showModalWindow && (
+        <Modal
+            modalTitle={modalTitle}
+            modalMessage={modalMessage}
+            onClose={() => setShowModalWindow(false)}
+        />
+        )}
     </div>
    
 
