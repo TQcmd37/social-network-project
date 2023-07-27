@@ -29,12 +29,33 @@ const RegisterForm = ({ onClose }) => {
 const handleConfirmPasswordChange = (e) => {
   setConfirmPassword(e.target.value);
 };
+
+const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidUserName = (userName) => {
+    const userNameRegex = /^[a-zA-Z0-9_]+$/;
+    return userNameRegex.test(userName);
+  };
+
 const showModal = (title, message) => {
     setShowModalWindow(true);
     setModalTitle(title);
     setModalMessage(message);
 };
   const handleRegister = () => {
+    if (!email || !password || !username || !confirmPassword) {
+        showModal('Error', 'Please fill in all required fields.');
+        return;
+      }
+  
+      if (!isValidEmail(email)) {
+        showModal('Invalid Email', 'Please enter a valid email address.');
+        return;
+      }
+  
     if (password !== confirmPassword) {
       showModal("Passwords don't match", "Please make sure the passwords match and try again.");
       return;
@@ -43,6 +64,10 @@ const showModal = (title, message) => {
       showModal("Password too short", "Password must have at least 6 characters.");
       return;
     }
+    if (!isValidUserName(username)) {
+        showModal('Invalid Username', 'Username can only contain letters, numbers, and underscores.');
+        return;
+      }
   
     // Resto de la lógica de registro si pasa todas las validaciones
   };
@@ -105,7 +130,6 @@ const showModal = (title, message) => {
         />
         )}
     </div>
-   
 
   );
 };
