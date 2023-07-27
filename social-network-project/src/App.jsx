@@ -1,10 +1,10 @@
+import LoginForm from "./components/login/Login"
 
-
-function App() {
+const App = () => {
 
   return (
     <>
-      
+    <LoginForm/>
     </>
   )
 }
