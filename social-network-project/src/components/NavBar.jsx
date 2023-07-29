@@ -10,11 +10,11 @@ const NavBar = ()=>{
                 <button className="absolute right-0 top-1 mt-2 mr-3"><RiSearchLine/></button>
             </form>
             <ul className="flex justify-end items-center w-1/3">
-                <li><a href="/" className="mr-4">📖</a></li>
-                <li><a href="/" className="mr-4">🌓</a></li>
-                <li><a href="/about/" className="mr-4">📩</a></li>
-                <li><a href="#" className="mr-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md" >Registrase</a></li>
-                <li><a href="#" className="mr-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md">Iniciar Sesión</a></li>
+                <li className="text-4xl pt-10 mr-4"><a href="/"><RiContrastFill/></a></li>
+                <li className="text-4xl pt-10 mr-4" ><a href="/" ><RiContrastFill /></a></li>
+                <li className="text-4xl pt-10 mr-4"><a href="/"><RiContrastFill/></a></li>
+                <li><a href="#" className="mr-4 bg-blue-500 text-white hover:bg-blue-400  px-4 py-2 rounded-lg shadow-md" >Registrase</a></li>
+                <li><a href="#" className="mr-4 bg-blue-500 text-white hover:bg-blue-400 px-4 py-2 rounded-lg shadow-md">Iniciar Sesión</a></li>
             </ul>
         </nav>
     )
