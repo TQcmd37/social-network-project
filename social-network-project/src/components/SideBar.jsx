@@ -15,7 +15,7 @@ const SideBar = () => {
   return (
     <>
     <nav className="bg-black-100 fixed left-0 w-20 top-14 bottom-0 h-90 text-center">
-      <ul className="flex flex-col justify-between text-4xl pl-5">
+      <ul className="flex flex-col justify-between text-4xl pl-5 text-black-600">
         <li onClick={handleClick} title="Inicio" className={`my-4 md:my-6 lg:my-8 
         rounded-tl-xl rounded-bl-xl hover:bg-[#ffffff] w-full pt-2 pb-2 ${colorButton}`}>
           <a href="#">
