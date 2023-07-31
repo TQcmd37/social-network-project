@@ -111,7 +111,7 @@ const showModal = (title, message) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-md shadow-md">
+      <div className="bg-white p-6 rounded-md shadow-md md:w-4/5 lg:w-2/5">
         <h1 className="text-2xl font-bold mb-4">Let&apos;s Register</h1>
         <h2 className="text-lg text-gray-600 mb-4">It&apos;s easy and fast</h2>
         <input
