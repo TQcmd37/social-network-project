@@ -1,19 +1,43 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { User, Send } from 'react-feather';
+import axios from 'axios';
 
 const PostForm = ({ onSubmit }) => {
   const [postText, setPostText] = useState('');
+  const [formData, setFormData] = useState({
+    id_user: '',
+    content: ''
+  })
 
   const handleInputChange = (e) => {
-    setPostText(e.target.value);
+    // setPostText(e.target.value);
+    const { name, value } = e.target;
+
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = () => {
-    if (postText.trim() !== '') {
-      onSubmit(postText);
-      setPostText('');
-    }
+    // if (postText.trim() !== '') {
+    //   onSubmit(postText);
+    //   setPostText('');
+    // }
+    axios
+    .post('http://localhost:3000/api/posts', { content: formData.content })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+    setFormData({
+      ...formData,
+      content: "",
+    });
   };
 
   return (
@@ -28,7 +52,8 @@ const PostForm = ({ onSubmit }) => {
           <input
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-300"
             type="text"
-            value={postText}
+            value={formData.content}
+            name="content"
             onChange={handleInputChange}
             placeholder="What are you thinking?"
           />
