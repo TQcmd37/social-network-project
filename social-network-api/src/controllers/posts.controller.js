@@ -36,7 +36,6 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
     const { id_user, content } = req.body;
 
-    // Validar los datos de entrada utilizando express-validator
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });

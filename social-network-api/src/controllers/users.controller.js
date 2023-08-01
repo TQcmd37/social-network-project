@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import { pool } from "../db.js";
 
 export const registerUser = async (req, res) => {
-    const { user_name, email, password, id_rol } = req.body;
+    const { user_name, email, password, id_rol, profile_picture, birthday, gender } = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -18,14 +18,14 @@ export const registerUser = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const query = 'INSERT INTO users (user_name, email, password, id_rol) VALUES (?, ?, ?, ?)';
-        const values = [user_name, email, hashedPassword, id_rol];
+        const query = 'INSERT INTO users (user_name, email, password, id_rol, profile_picture, birthday, gender) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        const values = [user_name, email, hashedPassword, id_rol, profile_picture, birthday, gender];
 
         await pool.query(query, values);
 
         res.status(201).json({
             message: 'Usuario registrado correctamente',
-            user: { user_name, email, id_rol }
+            user: { user_name, email, id_rol, profile_picture, birthday, gender }
         });
     } catch (error) {
         console.error(error);
@@ -51,7 +51,10 @@ export const loginUser = async (req, res) => {
             id: user.id,
             user_name: user.user_name,
             email: user.email,
-            id_rol: user.id_rol
+            id_rol: user.id_rol,
+            profile_picture: user.profile_picture,
+            birthday: user.birthday,
+            gender: user.gender
         });
     } catch (error) {
         console.error(error);
