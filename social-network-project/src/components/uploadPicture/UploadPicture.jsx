@@ -29,7 +29,7 @@ export default function UploadPicture(){
   };
 
   return (
-    <div className="w-full max-w-xs mx-auto">
+    <div className="w-full max-w-xs mx-auto mt-20">
       <label className="block mb-2 text-gray-700">Seleccione una imagen:</label>
       <input
         type="file"
