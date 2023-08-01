@@ -8,8 +8,6 @@ router.get('/posts/:id', getPost)
 
 router.post('/posts', createPost)
 
-// router.patch('/posts/:id', u)
-
 router.delete('/posts/:id', deletePost)
 
 
