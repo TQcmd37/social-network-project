@@ -1,13 +1,13 @@
-// import LoginForm from "./components/loginForm/LoginForm"
-
-import Container from "./components/container/Container"
-import LoginForm from "./components/loginForm/LoginForm"
+import { Outlet } from "react-router"
 import NavBar from "./components/NavBar"
 
 function App() {
 
   return (
-    <LoginForm />
+    <> 
+      <NavBar/> 
+      <Outlet className="mt-20"/>
+    </>
   )
 }
 

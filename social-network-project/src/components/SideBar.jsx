@@ -6,6 +6,7 @@ import {
   RiAccountCircleLine,
   RiSettings5Line,
 } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const SideBar = ({ showMenu }) => {
   const [isClicked, setIsClicked] = useState(" ");
@@ -55,9 +56,9 @@ const SideBar = ({ showMenu }) => {
             className={`my-4 md:my-6 lg:my-8 
         rounded-tl-xl rounded-bl-xl hover:bg-[#ffffff] w-full pt-2 pb-2 ${ isClicked == "home" ? "bg-black-50" : " " }`}
           >
-            <a href="#">
+            <Link to={'/home'}>
               <RiHome2Line />
-            </a>
+            </Link>
           </li>
           <li
             onClick={handleClickAccount}
@@ -65,9 +66,9 @@ const SideBar = ({ showMenu }) => {
             className={`my-4 md:my-6 lg:my-8 
         rounded-tl-xl rounded-bl-xl hover:bg-[#ffffff] w-full pt-2 pb-2 ${ isClicked == "account" ? "bg-black-50" : " " }`}
           >
-            <a href="#">
+            <Link to={'#'}>
               <RiAccountCircleLine />
-            </a>
+            </Link>
           </li>
           <li
             onClick={handleClickEvents}
@@ -75,9 +76,9 @@ const SideBar = ({ showMenu }) => {
             className={`my-4 md:my-6 lg:my-8 
         rounded-tl-xl rounded-bl-xl hover:bg-[#ffffff] w-full pt-2 pb-2 ${ isClicked == "events" ? "bg-black-50" : " "}`}
           >
-            <a href="#">
+            <Link to={'#'}>
               <RiCalendarEventLine />
-            </a>
+            </Link>
           </li>
           <li
             onClick={handleClickChat}
@@ -85,9 +86,9 @@ const SideBar = ({ showMenu }) => {
             className={`my-4 md:my-6 lg:my-8 
         rounded-tl-xl rounded-bl-xl hover:bg-[#ffffff] w-full pt-2 pb-2 ${ isClicked == "chat" ? "bg-black-50" : " "}`}
           >
-            <a href="#">
+            <Link to={'/home/chat'}>
               <RiChat3Line />
-            </a>
+            </Link>
           </li>
           <li
             onClick={handleClickSettings}
@@ -95,9 +96,9 @@ const SideBar = ({ showMenu }) => {
             className={`mt-4 md:mt-6 lg:mt-8 
         rounded-tl-xl rounded-bl-xl hover:bg-[#ffffff] w-full pt-2 pb-2 ${ isClicked == "settings" ? "bg-black-50" : " "}`}
           >
-            <a href="#">
+            <Link to={'/home/config'}>
               <RiSettings5Line />
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
