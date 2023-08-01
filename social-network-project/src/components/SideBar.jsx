@@ -32,27 +32,21 @@ const SideBar = ({ showMenu }) => {
     setIsClicked("settings")
   }
 
-  const selected = ()=>{ if(isClicked != " " && showMenu){
+  /* const selected = ()=>{ if(isClicked != " " && showMenu){
     setIsClicked(" ")
     setHiddenMenu(true)
   }else{
     setHiddenMenu(false)
    }}
 
-   selected()
-
-  
-
-  
-
-
-  
-
+   selected() 
+   
+    ${ hidden ? " hidden " : " "} */
 
   return (
     <>
       <nav
-        className={`bg-black-100 md:left-0 fixed w-20 top-14 bottom-0 h-90 text-center ${ showMenu ? "  " : " -left-full" } ${ hidden ? " hidden " : " "} `}
+        className={`bg-black-100 md:left-0 fixed w-20 top-14 bottom-0 h-90 text-center ${ showMenu ? "  " : " -left-full" }`}
       >
         <ul className="flex flex-col justify-between text-4xl pl-5 text-black-600">
           <li
