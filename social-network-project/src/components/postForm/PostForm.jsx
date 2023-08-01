@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import { User, Send } from 'react-feather';
 import axios from 'axios';
 
-const PostForm = ({ onSubmit }) => {
-  const [postText, setPostText] = useState('');
+const PostForm = () => {
   const [formData, setFormData] = useState({
-    id_user: '',
+    id_user: 1,
     content: ''
   })
 
   const handleInputChange = (e) => {
-    // setPostText(e.target.value);
     const { name, value } = e.target;
-
-
     setFormData({
       ...formData,
       [name]: value,
@@ -22,12 +18,8 @@ const PostForm = ({ onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    // if (postText.trim() !== '') {
-    //   onSubmit(postText);
-    //   setPostText('');
-    // }
     axios
-    .post('http://localhost:3000/api/posts', { content: formData.content })
+    .post('http://localhost:3000/api/posts', formData)
     .then((response) => {
       console.log(response.data);
     })
