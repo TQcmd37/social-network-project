@@ -1,13 +1,16 @@
 // import LoginForm from "./components/loginForm/LoginForm"
 
-import Container from "./components/container/Container"
-import LoginForm from "./components/loginForm/LoginForm"
-import NavBar from "./components/NavBar"
+// import LoginForm from "./components/loginForm/LoginForm"
+import UserProfile from "./components/userProfile/UserProfile"
 
 function App() {
 
   return (
-    <LoginForm />
+    <>
+      {/* <LoginForm /> */}
+      <UserProfile/>
+    </>
+   
   )
 }
 
