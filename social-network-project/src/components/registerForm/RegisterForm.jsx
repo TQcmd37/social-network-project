@@ -1,31 +1,30 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 const RegisterForm = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [modalTitle, setModalTitle] = useState(''); 
+  const [modalTitle, setModalTitle] = useState('');
   const [modalMessage, setModalMessage] = useState('');
   const [showModalWindow, setShowModalWindow] = useState(false);
   const [birthdate, setBirthdate] = useState('');
   const [gender, setGender] = useState('');
-
-
-
+  const navigate = useNavigate();
 
   const MIN_PASSWORD_LENGTH = 6;
 
+  const handleBirthdateChange = (e) => {
+    setBirthdate(e.target.value);
+  };
 
-const handleBirthdateChange = (e) => {
-  setBirthdate(e.target.value);
-};
-
-const handleGenderChange = (e) => {
-  setGender(e.target.value);
-};
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -39,11 +38,11 @@ const handleGenderChange = (e) => {
     setUsername(e.target.value);
   };
 
-const handleConfirmPasswordChange = (e) => {
-  setConfirmPassword(e.target.value);
-};
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
 
-const isValidEmail = (email) => {
+  const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
@@ -53,28 +52,35 @@ const isValidEmail = (email) => {
     return userNameRegex.test(userName);
   };
 
-const showModal = (title, message) => {
+  const showModal = (title, message) => {
     setShowModalWindow(true);
     setModalTitle(title);
     setModalMessage(message);
-};
-  const handleRegister = () => {
+  };
+  const handleRegister = async () => {
     const today = new Date();
     const birthDateValue = new Date(birthdate);
     let age = today.getFullYear() - birthDateValue.getFullYear();
     const monthDiff = today.getMonth() - birthDateValue.getMonth();
 
-
+    const newUser = {
+      id_rol: 1, //Aquí iría el id del usuario con el estado global
+      email: email,
+      password: password,
+      user_name: username,
+      birthday: birthdate,
+      gender: gender,
+    };
     if (!email || !password || !username || !confirmPassword) {
-        showModal('Error', 'Please fill in all required fields.');
-        return;
-      }
-  
-      if (!isValidEmail(email)) {
-        showModal('Invalid Email', 'Please enter a valid email address.');
-        return;
-      }
-  
+      showModal('Error', 'Please fill in all required fields.');
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showModal('Invalid Email', 'Please enter a valid email address.');
+      return;
+    }
+
     if (password !== confirmPassword) {
       showModal("Passwords don't match", "Please make sure the passwords match and try again.");
       return;
@@ -84,9 +90,9 @@ const showModal = (title, message) => {
       return;
     }
     if (!isValidUserName(username)) {
-        showModal('Invalid Username', 'Username can only contain letters, numbers, and underscores.');
-        return;
-      }
+      showModal('Invalid Username', 'Username can only contain letters, numbers, and underscores.');
+      return;
+    }
     if (!birthdate) {
       showModal('Error', 'Please enter your birthdate.');
       return;
@@ -94,19 +100,37 @@ const showModal = (title, message) => {
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateValue.getDate())) {
       age--;
     }
-  
+
     if (age < 18) {
       showModal('Invalid Age', 'You must be at least 18 years old to register.');
       return;
     }
-  
+
     if (gender !== 'male' && gender !== 'female' && gender !== 'custom') {
       showModal('Error', 'Please select a gender.');
       return;
     }
-  
-    
-  
+    try {
+      const response = await axios.post('http://localhost:3000/auth/registro', newUser)
+
+      if (response.status === 201) {
+        const userData = response.data;
+
+        // login(userData) estado global
+        navigate('/home')
+      } else {
+        showModal('Error', 'An error occurred')
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        showModal('Error', 'Please fill in all required fields.')
+      } else if (error.response && error.response.status === 409) {
+        showModal('Invalid account', 'Account already created')
+      } else {
+        showModal('Error', 'Server error')
+      }
+    }
+
   };
 
   return (
@@ -153,22 +177,22 @@ const showModal = (title, message) => {
 
         {/* checkbox sexo */}
         <label>
-            <input
-              type="checkbox"
-              value="male"
-              checked={gender === 'male'}
-              onChange={handleGenderChange}
-            />
-            Male
+          <input
+            type="checkbox"
+            value="male"
+            checked={gender === 'male'}
+            onChange={handleGenderChange}
+          />
+          Male
         </label>
         <label>
-            <input
-              type="checkbox"
-              value="female"
-              checked={gender === 'female'}
-              onChange={handleGenderChange}
-            />
-            Female
+          <input
+            type="checkbox"
+            value="female"
+            checked={gender === 'female'}
+            onChange={handleGenderChange}
+          />
+          Female
         </label>
         <label>
           <input
@@ -199,18 +223,18 @@ const showModal = (title, message) => {
       </div>
       {showModalWindow && (
         <Modal
-            modalTitle={modalTitle}
-            modalMessage={modalMessage}
-            onClose={() => setShowModalWindow(false)}
+          modalTitle={modalTitle}
+          modalMessage={modalMessage}
+          onClose={() => setShowModalWindow(false)}
         />
-        )}
+      )}
     </div>
 
   );
 };
 
 RegisterForm.propTypes = {
-    onClose: PropTypes.func.isRequired,
-  };
+  onClose: PropTypes.func.isRequired,
+};
 
 export default RegisterForm;

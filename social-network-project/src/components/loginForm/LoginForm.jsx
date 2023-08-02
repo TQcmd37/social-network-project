@@ -1,16 +1,23 @@
-
 import { useState } from 'react';
 import { Eye, EyeOff } from 'react-feather';
 import RegisterForm from '../registerForm/RegisterForm';
+import { useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 const LoginForm = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value)
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -21,6 +28,22 @@ const LoginForm = () => {
 
   const closeRegisterModal = () => {
     setShowRegisterModal(false);
+  };
+
+  const handleLogin = () => {
+    axios.post('http://localhost:3000/auth/login', { email, password })
+      .then((response) => {
+        if(response.status === 200){
+          const userData = response.data;
+          //login(userData) estado global
+          navigate('/home')
+        }else{
+          // showModal('Error', 'An error occurred')
+        }
+      })
+      .catch((error) => {
+        console.error('Error during login:', error);
+      });
   };
 
   return (
@@ -34,6 +57,8 @@ const LoginForm = () => {
                 <input
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
                 type="email"
+                value={email}
+                onChange={handleEmailChange}
                 id="email"
                 placeholder="Enter your email"
                 />
@@ -63,6 +88,7 @@ const LoginForm = () => {
                 <button
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
+                onClick={handleLogin} 
                 >
                 Login
                 </button>
