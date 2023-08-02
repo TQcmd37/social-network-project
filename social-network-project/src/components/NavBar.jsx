@@ -14,7 +14,7 @@ const NavBar = ()=>{
 
     return (
         <>
-        <nav className="bg-black-100 w-full fixed top-0 h-14 text-center flex justify-between items-center ">
+        <nav className="bg-black-100 w-full fixed top-0 h-14 text-center flex justify-between items-center">
             <h1 className=" w-20 hidden lg:block">LOGO</h1>
             <button onClick={toggleMenu} className={`md:hidden text-4xl ml-5 text-black-600`}><RiMenuLine/></button>
             <form action="/" className=" relative w-1/2">

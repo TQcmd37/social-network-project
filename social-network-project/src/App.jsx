@@ -1,16 +1,13 @@
-// import LoginForm from "./components/loginForm/LoginForm"
-
-import LoginForm from "./components/loginForm/LoginForm"
-import UserProfile from "./components/userProfile/UserProfile"
+import { Outlet } from "react-router"
+import NavBar from "./components/NavBar"
 
 function App() {
 
   return (
-    <>
-      <LoginForm />
-      <UserProfile/>
+    <> 
+      <NavBar/> 
+      <Outlet className="mt-20"/>
     </>
-   
   )
 }
 
