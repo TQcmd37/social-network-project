@@ -1,15 +1,16 @@
 import  { useState } from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../Modal/Modal';
+import useModal from '../../hooks/useModal';
+import Modal from "../Modal/Modal"
 
 const RegisterForm = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [modalTitle, setModalTitle] = useState(''); 
-  const [modalMessage, setModalMessage] = useState('');
-  const [showModalWindow, setShowModalWindow] = useState(false);
+  // const [modalTitle, setModalTitle] = useState('');
+  // const [modalMessage, setModalMessage] = useState('');
+  // const [showModalWindow, setShowModalWindow] = useState(false);
   const [birthdate, setBirthdate] = useState('');
   const [gender, setGender] = useState('');
 
@@ -52,12 +53,14 @@ const isValidEmail = (email) => {
     const userNameRegex = /^[a-zA-Z0-9_]+$/;
     return userNameRegex.test(userName);
   };
+  const { showModal, closeModal, modalTitle, modalMessage, showModalWindow } = useModal();
 
-const showModal = (title, message) => {
-    setShowModalWindow(true);
-    setModalTitle(title);
-    setModalMessage(message);
-};
+
+// const showModal = (title, message) => {
+//     setShowModalWindow(true);
+//     setModalTitle(title);
+//     setModalMessage(message);
+// };
   const handleRegister = () => {
     const today = new Date();
     const birthDateValue = new Date(birthdate);
@@ -201,7 +204,7 @@ const showModal = (title, message) => {
         <Modal
             modalTitle={modalTitle}
             modalMessage={modalMessage}
-            onClose={() => setShowModalWindow(false)}
+            onClose={() => closeModal()}
         />
         )}
     </div>
@@ -214,3 +217,6 @@ RegisterForm.propTypes = {
   };
 
 export default RegisterForm;
+
+
+
