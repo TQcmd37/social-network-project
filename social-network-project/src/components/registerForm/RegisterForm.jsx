@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../Modal/Modal';
+import useModal from '../../hooks/useModal';
+import Modal from "../Modal/Modal"
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
@@ -9,9 +10,8 @@ const RegisterForm = ({ onClose }) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [modalTitle, setModalTitle] = useState('');
-  const [modalMessage, setModalMessage] = useState('');
-  const [showModalWindow, setShowModalWindow] = useState(false);
+  const { showModal, closeModal, modalTitle, modalMessage, showModalWindow } = useModal();
+
   const [birthdate, setBirthdate] = useState('');
   const [gender, setGender] = useState('');
   const navigate = useNavigate();
@@ -52,11 +52,6 @@ const RegisterForm = ({ onClose }) => {
     return userNameRegex.test(userName);
   };
 
-  const showModal = (title, message) => {
-    setShowModalWindow(true);
-    setModalTitle(title);
-    setModalMessage(message);
-  };
   const handleRegister = async () => {
     const today = new Date();
     const birthDateValue = new Date(birthdate);
@@ -223,9 +218,9 @@ const RegisterForm = ({ onClose }) => {
       </div>
       {showModalWindow && (
         <Modal
-          modalTitle={modalTitle}
-          modalMessage={modalMessage}
-          onClose={() => setShowModalWindow(false)}
+            modalTitle={modalTitle}
+            modalMessage={modalMessage}
+            onClose={() => closeModal()}
         />
       )}
     </div>
@@ -238,3 +233,6 @@ RegisterForm.propTypes = {
 };
 
 export default RegisterForm;
+
+
+
