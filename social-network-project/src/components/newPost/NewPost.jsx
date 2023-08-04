@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types';
-import { format } from 'date-fns'
+import { format, utcToZonedTime } from 'date-fns-tz'
 
 const  NewPost = ({ post }) => {
-  const formattedDate = format(new Date(post.publication_date), "MMMM dd',' yyyy HH:mm");
+
+const utcDateFromApi = new Date(post.publication_date);
+const timeZone = 'America/Argentina/Buenos_Aires';
+const zonedDate = utcToZonedTime(utcDateFromApi, timeZone);
+
+const formattedDate = format(zonedDate, 'MMMM dd, yyyy HH:mm', { timeZone });
+
     return (
       <div className="bg-white p-4 rounded-lg shadow m-1">
         <div className="flex items-start space-x-4">
