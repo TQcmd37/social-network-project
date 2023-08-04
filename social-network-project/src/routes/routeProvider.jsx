@@ -32,9 +32,14 @@ export const browserRouter = createBrowserRouter([
         errorElement: <NotFound />,
         children: [
             {
+                path: '/home/*',
+                element: <Container/>,
+                index: true
+            },
+            {
                 path: '/home/config',
                 element: <UploadPicture />,       
-            }
+            }      
         ]
     }
 ])
