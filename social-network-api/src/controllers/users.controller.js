@@ -48,7 +48,7 @@ export const loginUser = async (req, res) => {
         }
 
         res.send({
-            id: user.id,
+            id: user.id_user,
             user_name: user.user_name,
             email: user.email,
             id_rol: user.id_rol,
