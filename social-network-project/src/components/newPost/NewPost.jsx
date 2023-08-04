@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { format   } from 'date-fns'
+import { format } from 'date-fns'
 
 const  NewPost = ({ post }) => {
   const formattedDate = format(new Date(post.publication_date), "MMMM dd',' yyyy HH:mm");
