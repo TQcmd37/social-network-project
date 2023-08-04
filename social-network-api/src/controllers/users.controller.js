@@ -1,36 +1,35 @@
+import { validationResult } from 'express-validator';
+import bcrypt from 'bcryptjs';
 import { pool } from "../db.js";
 
 export const registerUser = async (req, res) => {
-    const { user_name, email, password, id_rol} = req.body;
+    const { user_name, email, password, id_rol, profile_picture, birthday, gender } = req.body;
 
-    try{
-        if(!user_name || !email || !password || !id_rol) {
-            return res.status(400).json({
-                message: 'Todos los campos son requeridos'
-            });
-        }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
+    try {
         const [existingUser] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-        if(existingUser.length > 0){
-            return res.status(409).json({message: 'El email ya está registrado'})
+        if (existingUser.length > 0) {
+            return res.status(409).json({ message: 'El email ya está registrado' });
         }
 
-        const [result] = await pool.query(
-            'INSERT INTO users (user_name, email, password, id_rol) VALUES (?,?,?,?)',
-            [user_name, email, password, id_rol]
-        )
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const insertedUserId = result.insertId
+        const query = 'INSERT INTO users (user_name, email, password, id_rol, profile_picture, birthday, gender) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        const values = [user_name, email, hashedPassword, id_rol, profile_picture, birthday, gender];
+
+        await pool.query(query, values);
 
         res.status(201).json({
-            id: insertedUserId,
-            user_name,
-            email,
-            id_rol
+            message: 'Usuario registrado correctamente',
+            user: { user_name, email, id_rol, profile_picture, birthday, gender }
         });
-    } catch(error){
-        console.log(error);
-        return res.status(500).json({message: 'Algo salió mal al registrar el usuario'});
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Algo salió mal al registrar el usuario' });
     }
 }
 
@@ -41,9 +40,10 @@ export const loginUser = async (req, res) => {
         if (rows.length === 0) {
             return res.status(404).json({ message: 'El usuario no existe' });
         }
-        
+
         const user = rows[0];
-        if (password !== user.password) {
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
 
@@ -51,9 +51,13 @@ export const loginUser = async (req, res) => {
             id: user.id,
             user_name: user.user_name,
             email: user.email,
-            id_rol: user.id_rol 
+            id_rol: user.id_rol,
+            profile_picture: user.profile_picture,
+            birthday: user.birthday,
+            gender: user.gender
         });
     } catch (error) {
+        console.error(error);
         return res.status(500).json({ message: 'Algo salió mal al iniciar sesión' });
     }
 };

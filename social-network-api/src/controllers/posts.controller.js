@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator';
 import { pool } from "../db.js";
 
 export const getPosts = async (req, res) => {
@@ -5,6 +6,7 @@ export const getPosts = async (req, res) => {
         const [rows] = await pool.query('SELECT * FROM posts')
         res.json(rows)
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             message: 'Algo salió mal.'
         })
@@ -13,32 +15,35 @@ export const getPosts = async (req, res) => {
 
 export const getPost = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM posts WHERE id_posts = ?', [req.params.id])
+        const postId = req.params.id;
+        const [rows] = await pool.query('SELECT * FROM posts WHERE id_posts = ?', [postId])
 
-        if(rows.length <= 0) return res.status(404).json({
-            message: 'Posteo no encontrado.'
-        })
+        if (rows.length <= 0) {
+            return res.status(404).json({
+                message: 'Posteo no encontrado.'
+            })
+        }
 
         res.json(rows[0])
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             message: 'Algo salió mal.'
         })
     }
 }
 
-export const createPost = async (req,res) => {
+export const createPost = async (req, res) => {
     const { id_user, content } = req.body;
 
-    if(!id_user, !content) {
-        return res.status(400).json({
-            message: 'Todos los datos son requeridos.'
-        })
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
     }
 
     try {
         const [rows] = await pool.query('SELECT id_posts FROM posts WHERE content = ?', [content]);
-        if(rows.length > 0) {
+        if (rows.length > 0) {
             return res.status(409).json({
                 message: 'No insertes el mismo contenido!'
             })
@@ -48,11 +53,11 @@ export const createPost = async (req,res) => {
 
         return res.status(201).json({
             id_posts: createdId,
-            id_user, 
+            id_user,
             content,
         })
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             message: 'Algo salió mal al crear el posteo.'
         })
@@ -61,14 +66,18 @@ export const createPost = async (req,res) => {
 
 export const deletePost = async (req, res) => {
     try {
-        const [result] = await pool.query('DELETE FROM posts WHERE id_posts = ?' , [req.params.id]);
+        const postId = req.params.id;
+        const [result] = await pool.query('DELETE FROM posts WHERE id_posts = ?', [postId]);
 
-        if(result.affectedRows <= 0) return res.status(404).json({
-            message: 'Posteo no encontrado.'
-        })
+        if (result.affectedRows <= 0) {
+            return res.status(404).json({
+                message: 'Posteo no encontrado.'
+            })
+        }
 
         res.sendStatus(204)
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             message: 'Algo salió mal.'
         })
