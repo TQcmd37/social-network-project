@@ -1,6 +1,3 @@
-
-// src/hooks/useModal.js
-
 import { useState } from 'react';
 
 const useModal = () => {

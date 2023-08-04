@@ -1,7 +1,15 @@
 // import { useState } from 'react';
 // import axios from 'axios';
+import { Context } from "../../context/Context";
+import { useTranslate } from "../../hooks/useTranslate";
+import { Translations } from "../../translations/translations";
+import { useContext } from "react";
 
 const UserProfile = () => {
+  const context = useContext(Context);
+  const translations = useTranslate(Translations(context));
+
+
     const userData = {
         id: 1,
         user_name: "Carlos",
@@ -12,7 +20,7 @@ const UserProfile = () => {
         gender: "male"
     }
     const formattedBirthday = new Date(userData.birthday).toLocaleDateString();//esto se sacaria una vez que tenga la fecha corecta que viene del back
-
+   
 //   const [userData, setUserData] = useState(null);
 
 //   useEffect(() => {
@@ -32,14 +40,16 @@ const UserProfile = () => {
 //   }
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow">
+    <div className={`flex flex-col items-center justify-center p-4 rounded-lg shadow ${
+      context.clearTheme ? "bg-blue-500 text-black" : "bg-red-500 text-white"
+    }`}>
       <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center">
         <img className="w-24 h-24 rounded-full" src={userData.profile_picture} alt="Profile" />
       </div>
       <h1 className="text-3xl font-bold mt-4">{userData.user_name}</h1>
       <p>Email: {userData.email}</p>
-      <p>Birthday: {formattedBirthday}</p>
-      <p>Gender: {userData.gender}</p>
+      <p>{translations.birthday}: {formattedBirthday}</p>
+      <p>{translations.gender}: {userData.gender}</p>
     </div>
   );
 };
