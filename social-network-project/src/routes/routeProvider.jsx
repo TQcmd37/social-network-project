@@ -4,6 +4,7 @@ import NotFound from "../pages/not-found/NotFound";
 import Container from "../components/container/Container";
 import LoginForm from "../components/loginForm/LoginForm";
 import UploadPicture from "../components/uploadPicture/UploadPicture";
+import Chat from "../components/chat/Chat";
 
 export const browserRouter = createBrowserRouter([
     {
@@ -36,5 +37,11 @@ export const browserRouter = createBrowserRouter([
                 element: <UploadPicture />,       
             }
         ]
+    },
+    {
+        path: '/home/chat',
+        element: <Chat />,
+        errorElement: <NotFound />
     }
+
 ])
