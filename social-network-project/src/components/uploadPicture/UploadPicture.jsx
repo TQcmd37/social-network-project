@@ -1,23 +1,30 @@
 import { useState } from 'react';
 import { storage } from '../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import axios from 'axios';
+import useAuthStore from '../../store/useAuthStore';
 
 const DEFAULT_IMG = 'https://static.vecteezy.com/system/resources/previews/002/519/144/non_2x/social-media-avatar-free-vector.jpg'
 
 export default function UploadPicture(){
   const [selectedFile, setSelectedFile] = useState(null);
-  const [url, setUrl] = useState(null)
+  const [url, setUrl] = useState(null);
+  const { logged_id } = useAuthStore()
+
   const handleFileChange = (event) => {
     if(event.target.files[0]){
         setSelectedFile(event.target.files[0]);
     }
   };
-  console.log(selectedFile);
+
   const handleUpload = async () => {
     const imageRef = ref(storage, `/user${Math.random()}/image-${Date.now()}`)
     uploadBytes(imageRef, selectedFile).then(()=> {
         getDownloadURL(imageRef).then((url) => {
             setUrl(url)
+            axios.patch(`http://localhost:3000/auth/user/${logged_id}`, {
+              profile_picture: url
+            })
         })
         .catch((error) => {
             console.log(error.message, "Error obteniendo la imagen");
