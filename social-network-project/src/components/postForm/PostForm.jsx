@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { User, Send } from 'react-feather';
 import axios from 'axios';
 
@@ -62,8 +61,6 @@ const PostForm = () => {
     </div>
   );
 };
-PostForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
+
 
 export default PostForm;
