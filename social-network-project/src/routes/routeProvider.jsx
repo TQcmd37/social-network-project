@@ -5,6 +5,8 @@ import Container from "../components/container/Container";
 import LoginForm from "../components/loginForm/LoginForm";
 import UploadPicture from "../components/uploadPicture/UploadPicture";
 import ChatRouter from "./ChatRoute"
+import UserProfile from "../components/userProfile/UserProfile";
+
 
 export const browserRouter = createBrowserRouter([
     {
@@ -33,9 +35,18 @@ export const browserRouter = createBrowserRouter([
         errorElement: <NotFound />,
         children: [
             {
+                path: '/home/*',
+                element: <Container/>,
+                index: true
+            },
+            {
                 path: '/home/config',
                 element: <UploadPicture />,       
-            }
+            },
+            {
+                path: '/home/user/:id',
+                element: <UserProfile />,       
+            }     
         ]
     },
     {

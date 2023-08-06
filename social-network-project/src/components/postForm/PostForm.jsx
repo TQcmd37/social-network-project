@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { User, Send } from 'react-feather';
 import axios from 'axios';
+import useAuthStore from '../../store/useAuthStore';
 
 const PostForm = () => {
+  const { logged_id } = useAuthStore()
   const [formData, setFormData] = useState({
-    id_user: 1,
+    id_user: logged_id,
     content: ''
   })
 
@@ -62,8 +63,6 @@ const PostForm = () => {
     </div>
   );
 };
-PostForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
+
 
 export default PostForm;
