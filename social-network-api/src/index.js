@@ -3,37 +3,42 @@ import usersRoutes from './routes/users.routes.js';
 import postRoutes from './routes/posts.routes.js'
 import cors from 'cors'
 import { Server } from 'socket.io';
-import http from 'node:http'
+import http, { request } from 'node:http'
 
 
 const app = express();
 app.use(cors({
-  origin: "*" /* 'http://localhost:5173' */
+  origin: "*"
 }))
 
 const httpServer = http.createServer(app)
 
 // Create global chat
 const io = new Server(httpServer, {
-  cors: { 
+  cors: {
     origin: "*"
   }
 })
 
-
-io.on('connection', (socket)=>{
-  console.log(`Un usuario conectado ${socket.id}`)
+io.on('connection', (socket) => {
+  socket.on("message", (body) => {
+    socket.broadcast.emit('message', {
+      body,
+      from: socket.id.slice(6)
+    })
+  })
 })
 
 const port = 3000;
 
 app.use(express.json())
 
-
 app.use('/auth', usersRoutes)
+
 
 app.use('/api', postRoutes)
 
 httpServer.listen(port, () => {
   console.log(`El servidor está corriendo en el puerto: ${port}`);
 });
+
