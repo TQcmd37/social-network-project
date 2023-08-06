@@ -46,7 +46,7 @@ export const loginUser = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
-
+   
         res.send({
             id: user.id_user,
             user_name: user.user_name,
