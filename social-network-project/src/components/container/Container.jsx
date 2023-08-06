@@ -1,30 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PostForm from '../postForm/PostForm';
 import NewPost from '../newPost/NewPost';
+import axios from 'axios';
 
 const Container = () => {
-  const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
+  
+    useEffect(() => {
+      async function fetchPosts() {
+        try {
+          const response = await axios.get('http://localhost:3000/api/posts');
 
-  const handleTweetSubmit = (text) => {
-    const newPost = {
-      userImage: 'URL_TO_USER_IMAGE', // Replace with the URL of the user's image
-      userName: 'John Doe', // Replace with the user's name
-      text: text,
-      date: new Date().toLocaleString(),
-    };
-    setPosts((prevPost) => [newPost, ...prevPost]);
-  };
-
-  return (
-    <div className="container mx-auto mt-8 p-4 sm:w-4/5 lg:w-3/5 ">
-      <PostForm onSubmit={handleTweetSubmit} />
-      <div className="mt-4">
-        {posts.map((post, index) => (
-          <NewPost key={index} post={post} />
-        ))}
+          const sortedPosts = response.data.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date))
+          setPosts(sortedPosts);
+        } catch (error) {
+          console.error('Error al obtener los posteos:', error);
+        }
+      }
+  
+      fetchPosts();
+    }, []);
+  
+    return (
+      <div className="container mx-auto mt-12 p-4 sm:w-4/5 lg:w-3/5 ">
+        <PostForm />
+        <div className="mt-4">
+          {posts.map((post, index) => (
+            <NewPost key={index} post={post} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default Container;

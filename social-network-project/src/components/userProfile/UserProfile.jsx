@@ -1,43 +1,35 @@
-// import { useState } from 'react';
-// import axios from 'axios';
 import { Context } from "../../context/Context";
 import { useTranslate } from "../../hooks/useTranslate";
 import { Translations } from "../../translations/translations";
 import { useContext } from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 
 const UserProfile = () => {
   const context = useContext(Context);
   const translations = useTranslate(Translations(context));
 
-
-    const userData = {
-        id: 1,
-        user_name: "Carlos",
-        email:"carlos@gmail.com",
-        id_rol :"user",
-        profile_picture: "https://pps.whatsapp.net/v/t61.24694-24/364213491_798269322079496_200322145048207137_n.jpg?ccb=11-4&oh=01_AdRUHMWH4r9sEWC6HUlqfrVdV5I03s0YZPRkEB2ERxhI3Q&oe=64D6B3AA",            
-        birthday: new Date("1990-05-15"),
-        gender: "male"
-    }
     const formattedBirthday = new Date(userData.birthday).toLocaleDateString();//esto se sacaria una vez que tenga la fecha corecta que viene del back
-   
-//   const [userData, setUserData] = useState(null);
 
-//   useEffect(() => {
 
-//     axios.get('http://localhost:3000/api/user')
-//       .then((response) => {
-//         setUserData(response.data);
-//       })
-//       .catch((error) => {
-//         console.error('Error:', error);
-//       });
-//   }, []); 
+  const [userData, setUserData] = useState(null);
+  const { id } = useParams()
+  console.log(id);
+  useEffect(() => {
+    axios.get(`http://localhost:3000/auth/user/${id}`)
+      .then((response) => {
+        setUserData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, [id]); 
 
-//   if (!userData) {
-   
-//     return <div>Loading...</div>;
-//   }
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={`flex flex-col items-center justify-center p-4 rounded-lg shadow ${
