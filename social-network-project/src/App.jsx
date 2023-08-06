@@ -18,8 +18,7 @@ function App() {
       <UserProfile/>
 
     </ContextProvider>
-      {/* <LoginForm />
-      <UserProfile/> */}
+      
     </>
   )
 }
