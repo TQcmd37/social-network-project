@@ -19,7 +19,7 @@ const Container = () => {
       }
   
       fetchPosts();
-    }, []);
+    }, [posts]);
   
     return (
       <div className="container mx-auto mt-12 p-4 sm:w-4/5 lg:w-3/5 ">
