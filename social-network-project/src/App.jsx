@@ -1,22 +1,14 @@
-// import LoginForm from "./components/loginForm/LoginForm"
-
-
-// import LoginForm from "./components/loginForm/LoginForm"
-// import ChangeMode from "./components/changeMode/ChangeMode"
-import LanguageSelector from "./components/selectLanguage/selectLanguage"
-import UserProfile from "./components/userProfile/UserProfile"
-import { ContextProvider } from "./provider/ContextProvider"
-// import UserProfile from "./components/userProfile/UserProfile"
+import { Outlet } from "react-router-dom";
+import NavBar from "./components/NavBar"
+import { ContextProvider } from "./provider/ContextProvider";
 
 function App() {
 
   return (
     <>
     <ContextProvider>
-      {/* <ChangeMode/> */}
-      <LanguageSelector/>
-      <UserProfile/>
-
+      <NavBar/>
+      <Outlet/>
     </ContextProvider>
       
     </>

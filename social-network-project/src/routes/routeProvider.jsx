@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import NotFound from "../pages/not-found/NotFound";
+import NotFound from "../components/notFound/NotFound";
 import Container from "../components/container/Container";
 import LoginForm from "../components/loginForm/LoginForm";
 import UploadPicture from "../components/uploadPicture/UploadPicture";
 import UserProfile from "../components/userProfile/UserProfile";
+import Spinner from "../components/spinner/Spinner";
 
 export const browserRouter = createBrowserRouter([
     {
@@ -39,12 +40,16 @@ export const browserRouter = createBrowserRouter([
             },
             {
                 path: '/home/config',
-                element: <UploadPicture />,       
+                element: <UploadPicture />,
             },
             {
                 path: '/home/user/:id',
-                element: <UserProfile />,       
-            }     
+                element: <UserProfile />,
+            },
+            {
+                path: '/home/spinner',
+                element: <Spinner />,
+            }
         ]
     }
 ])

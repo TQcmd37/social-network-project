@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import Spinner from "../spinner/Spinner";
 
 const UserProfile = () => {
   const context = useContext(Context);
@@ -28,7 +28,7 @@ const UserProfile = () => {
   }, [id]); 
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return <Spinner/>;
   }
 
   return (
