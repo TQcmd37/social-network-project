@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import NotFound from "../pages/not-found/NotFound";
+import NotFound from "../components/notFound/NotFound";
 import Container from "../components/container/Container";
 import LoginForm from "../components/loginForm/LoginForm";
 import UploadPicture from "../components/uploadPicture/UploadPicture";
@@ -41,12 +41,12 @@ export const browserRouter = createBrowserRouter([
             },
             {
                 path: '/home/config',
-                element: <UploadPicture />,       
+                element: <UploadPicture />,
             },
             {
                 path: '/home/user/:id',
-                element: <UserProfile />,       
-            }     
+                element: <UserProfile />,
+            }
         ]
     },
     {
