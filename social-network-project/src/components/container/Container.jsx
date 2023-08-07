@@ -25,8 +25,8 @@ const Container = () => {
       <div className="container mx-auto mt-12 p-4 sm:w-4/5 lg:w-3/5 ">
         <PostForm />
         <div className="mt-4">
-          {posts.map((post, index) => (
-            <NewPost key={index} post={post} />
+          {posts.map((post) => (
+            <NewPost key={post.id_posts} post={post} />
           ))}
         </div>
       </div>

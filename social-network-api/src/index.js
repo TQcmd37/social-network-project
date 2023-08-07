@@ -11,6 +11,8 @@ app.use(cors({
   origin: "*"
 }))
 
+process.env.TZ = 'UTC';
+
 const httpServer = http.createServer(app)
 
 // Create global chat
