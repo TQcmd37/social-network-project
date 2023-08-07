@@ -5,7 +5,6 @@ import Container from "../components/container/Container";
 import LoginForm from "../components/loginForm/LoginForm";
 import UploadPicture from "../components/uploadPicture/UploadPicture";
 import UserProfile from "../components/userProfile/UserProfile";
-import Spinner from "../components/spinner/Spinner";
 
 export const browserRouter = createBrowserRouter([
     {
@@ -45,10 +44,6 @@ export const browserRouter = createBrowserRouter([
             {
                 path: '/home/user/:id',
                 element: <UserProfile />,
-            },
-            {
-                path: '/home/spinner',
-                element: <Spinner />,
             }
         ]
     }

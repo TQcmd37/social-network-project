@@ -10,11 +10,12 @@ import Spinner from "../spinner/Spinner";
 const UserProfile = () => {
   const context = useContext(Context);
   const translations = useTranslate(Translations(context));
-
-    const formattedBirthday = new Date(userData.birthday).toLocaleDateString();//esto se sacaria una vez que tenga la fecha corecta que viene del back
-
-
   const [userData, setUserData] = useState(null);
+
+
+    // const formattedBirthday = new Date(userData.birthday).toLocaleDateString();//esto se sacaria una vez que tenga la fecha corecta que viene del back
+
+
   const { id } = useParams()
   console.log(id);
   useEffect(() => {
@@ -40,7 +41,7 @@ const UserProfile = () => {
       </div>
       <h1 className="text-3xl font-bold mt-4">{userData.user_name}</h1>
       <p>Email: {userData.email}</p>
-      <p>{translations.birthday}: {formattedBirthday}</p>
+      <p>{translations.birthday}: {userData.birthday}</p>
       <p>{translations.gender}: {userData.gender}</p>
     </div>
   );
