@@ -3,7 +3,7 @@ import NavBar from "./components/NavBar"
 import { ContextProvider } from "./provider/ContextProvider";
 
 function App() {
-
+  
   return (
     <>
     <ContextProvider>
