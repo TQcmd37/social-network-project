@@ -1,8 +1,21 @@
-# React + Vite
+# Social Project Network 🌐
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Desarrollado por [Maca Álvarez](https://github.com/TuUsuarioGitHub), [Rodrigo Pérez](https://github.com/Rodrigopm98), [Tomás Sosa](https://github.com/TommySosa) y [Victor Quipildor](https://github.com/UsuarioVictor)
 
-Currently, two official plugins are available:
+¡Bienvenido a la red social Social Project Network! Esta plataforma te permite conectarte con otros usuarios, compartir publicaciones, chatear y explorar perfiles de usuarios. Aquí encontrarás instrucciones para instalar y utilizar la aplicación en tu computadora.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Características
+- Interfaz de usuario intuitiva y amigable.
+- Soporte de traducción en varios idiomas.
+- Tema claro y oscuro para una experiencia personalizada.
+- Sistema de chat en tiempo real utilizando Socket.IO.
+- Perfiles de usuario con información personal y listado de publicaciones.
+- Búsqueda de usuarios para conectarte con amigos.
+- Funcionalidad de cambiar el idioma en tiempo real con `useContext`.
+- Tema claro y oscuro para personalizar la apariencia.
+
+
+## Información Adicional
+Este proyecto fue desarrollado como parte del curso de Frontend de Global Learning. También cuenta con un backend desarrollado por Tommy Sosa.
+
+¡Gracias por utilizar Social Project Network! Si tienes alguna pregunta o comentario, no dudes en ponerte en contacto con nosotros. ¡Esperamos que disfrutes usando nuestra red social!
