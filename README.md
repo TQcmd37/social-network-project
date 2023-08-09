@@ -1,6 +1,6 @@
 # Social Project Network 🌐
 
-## Desarrollado por [Maca Álvarez](https://github.com/TuUsuarioGitHub), [Rodrigo Pérez](https://github.com/Rodrigopm98), [Tomás Sosa](https://github.com/TommySosa) y [Victor Quipildor](https://github.com/UsuarioVictor)
+## Desarrollado por [Maca Álvarez](https://github.com/TuUsuarioGitHub), [Rodrigo Pérez](https://github.com/Rodrigopm98), [Tomás Sosa](https://github.com/TommySosa) y [Victor Quipildor](https://www.github.com/octokatherine)
 
 ¡Bienvenido a la red social Social Project Network! Esta plataforma te permite conectarte con otros usuarios, compartir publicaciones, chatear y explorar perfiles de usuarios. Aquí encontrarás instrucciones para instalar y utilizar la aplicación en tu computadora.
 
